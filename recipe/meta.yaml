@@ -11,7 +11,7 @@ source:
 
 build:
   noarch: python
-  number: 0
+  number: 1
   script: {{ PYTHON }} -m pip install . -vv
   entry_points:
     - clease-gui=clease_gui.cli.main_cli:clease_gui_cli
@@ -42,6 +42,10 @@ test:
     - pip check
     - clease-gui --version  # Test the CLI runs
     - clease-gui new  # Test we can copy the jupyter notebook
+    - git clone --depth 1 --branch v{{ version }} https://gitlab.com/computationalmaterials/clease-gui.git
+    - cd clease-gui
+    - pip install -r test_requirements.txt
+    - pytest tests/
 
 about:
   home: https://gitlab.com/computationalmaterials/clease-gui/
